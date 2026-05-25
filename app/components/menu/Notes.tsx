@@ -1,7 +1,7 @@
 export default function Notes() {
   return (
     <main className="px-1">
-      <main className="flex justify-between text-white/90 text-lg bg-linear-to-r from-white/40 to-white/20 mt-1 py-4 px-2 items-center rounded-xl border-b border-b-white">
+      <main className="flex justify-between text-white/90 text-lg bg-black/40  mt-1 py-4 px-2 items-center rounded-xl border-b-2 border-white/50">
         <h2 className="line-clamp-1 max-w-50 text-sm">
           I love coding and computer science
         </h2>

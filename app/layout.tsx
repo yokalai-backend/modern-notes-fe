@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -13,7 +14,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <Toaster
+          position="top-center"
+          swipeDirections={["right", "left", "top"]}
+          toastOptions={{
+            style: {
+              background: "#1a1a1a",
+              border: "1px solid #2a2a2a",
+              color: "#a3a3a3",
+              fontFamily: "monospace",
+              fontSize: "13px",
+            },
+          }}
+        />
+      </body>
     </html>
   );
 }
