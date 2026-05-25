@@ -6,7 +6,7 @@ export default function Header() {
           <span className="text-white/70">Modern</span>{" "}
           <span className="text-white">Note</span>
         </h1>
-        <p className="text-white text-xs font-light">
+        <p className="text-white text-xs font-mono">
           Keep your notes private and save.
         </p>
       </div>
