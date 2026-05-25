@@ -1,15 +1,11 @@
-import { useState } from "react";
-
-export default function EditingArea() {
-  const [text, setText] = useState("");
-
+export default function EditingArea({ text, setText, formatted, time }: any) {
   return (
     <div className="flex flex-col h-screen overflow-hidden border-2 border-white/30 rounded-lg">
-      <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/30 ">
+      <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/30">
         <h2 className="text-white font-mono">Modern Note</h2>
         <div className="text-white text-xs font-mono">
-          <p> May 26 2026</p>
-          <p className="text-right">02.20 PM</p>
+          <p>{formatted}</p>
+          <p className="text-right">{time}</p>
         </div>
       </div>
 
