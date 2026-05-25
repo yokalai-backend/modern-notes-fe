@@ -6,7 +6,7 @@ import Notes from "@/app/components/menu/Notes";
 
 export default function Page() {
   return (
-    <main className="bg-black/75 min-h-screen">
+    <main className="bg-black/75 min-h-screen font-mono">
       <Header />
       <Filter />
       <Notes />

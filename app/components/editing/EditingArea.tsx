@@ -1,0 +1,26 @@
+import { useState } from "react";
+
+export default function EditingArea() {
+  const [text, setText] = useState("");
+
+  return (
+    <div className="flex flex-col h-screen overflow-hidden border-2 border-white/30 rounded-lg">
+      <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/30 ">
+        <h2 className="text-white font-mono">Modern Note</h2>
+        <div className="text-white text-xs font-mono">
+          <p> May 26 2026</p>
+          <p className="text-right">02.20 PM</p>
+        </div>
+      </div>
+
+      <div className="flex flex-1 overflow-hidden">
+        <textarea
+          className="flex-1 px-5 py-4 font-mono text-sm leading-6 text-white bg-transparent resize-none outline-none placeholder:text-white/30"
+          placeholder="Start typing..."
+          onChange={(e) => setText(e.target.value)}
+          value={text}
+        />
+      </div>
+    </div>
+  );
+}
