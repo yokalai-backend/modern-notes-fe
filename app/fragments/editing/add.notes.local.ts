@@ -2,6 +2,7 @@ import { toast } from "sonner";
 
 export default function addNotesToLocalStorage(
   text: string,
+  title: string,
   date: string,
   time: string,
 ) {
@@ -10,6 +11,7 @@ export default function addNotesToLocalStorage(
   const formatted = {
     id: Math.random().toString(36).slice(2) + Date.now().toString(36),
     notes: text,
+    title,
     date,
     time,
   };

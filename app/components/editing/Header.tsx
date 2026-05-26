@@ -17,7 +17,7 @@ export default function Header({ text, formatted, time }: any) {
       return;
     }
 
-    addNotesToLocalStorage(text, formatted, time);
+    addNotesToLocalStorage(text, title.value, formatted, time);
   }
 
   return (

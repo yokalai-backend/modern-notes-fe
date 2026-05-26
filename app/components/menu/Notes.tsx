@@ -1,17 +1,26 @@
+import { useEffect, useState } from "react";
+import { NoteProps } from "@/app/types/global";
+import Note from "./Note";
+import getNotesFromLocalStorage from "@/app/fragments/menu/get.notes.local";
+
 export default function Notes() {
+  const [notes, setNotes] = useState<NoteProps[]>([]);
+
+  getNotesFromLocalStorage(setNotes);
+
+  if (!notes.length) return;
+
   return (
     <main className="px-1">
-      <main className="flex justify-between text-white/90 text-lg bg-black/40  mt-1 py-4 px-2 items-center rounded-xl border-b-2 border-white/50">
-        <h2 className="line-clamp-1 max-w-50 text-sm">
-          I love coding and computer science
-        </h2>
-        <div className="flex gap-2 items-center mr-2.5">
-          <p className="text-sm">2 May 2026</p>
-          <div className="w-5.5 mb-0.5">
-            <img src="/delete.svg" alt="" />
-          </div>
-        </div>
-      </main>
+      {!notes.length && (
+        <p className="text-white/85 text-sm text-center">
+          Add notes to keep here...
+        </p>
+      )}
+
+      {notes.map((e) => (
+        <Note key={e.id} title={e.title} date={e.date} />
+      ))}
     </main>
   );
 }

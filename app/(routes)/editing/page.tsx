@@ -9,7 +9,7 @@ export default function Page() {
   const [text, setText] = useState("");
   const date = useRef(new Date());
 
-  const formatted = date.current.toLocaleDateString("en-US", {
+  const formatted = date.current.toLocaleDateString("en-GB", {
     month: "short",
     day: "numeric",
     year: "numeric",
