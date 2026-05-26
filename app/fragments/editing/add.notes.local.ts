@@ -1,3 +1,4 @@
+import { NoteProps } from "@/app/types/global";
 import { toast } from "sonner";
 
 export default function addNotesToLocalStorage(
@@ -5,11 +6,15 @@ export default function addNotesToLocalStorage(
   title: string,
   date: string,
   time: string,
+  isIdExists: string,
 ) {
   if (!text) return toast.error("No notes could be added");
 
+  const currentId =
+    Math.random().toString(36).slice(2) + Date.now().toString(36);
+
   const formatted = {
-    id: Math.random().toString(36).slice(2) + Date.now().toString(36),
+    id: currentId,
     notes: text,
     title,
     date,
@@ -20,9 +25,25 @@ export default function addNotesToLocalStorage(
 
   if (!mynotes) {
     localStorage.setItem("mynotes", JSON.stringify([formatted]));
-  } else {
-    const parsed = JSON.parse(mynotes);
-    localStorage.setItem("mynotes", JSON.stringify([...parsed, formatted]));
-    toast.success("New notes added into local storage");
+
+    return currentId;
   }
+
+  const parsed = JSON.parse(mynotes) as NoteProps[];
+
+  if (isIdExists) {
+    const edit = parsed.map((e) => (e.id === isIdExists ? formatted : e));
+
+    localStorage.setItem("mynotes", JSON.stringify(edit));
+
+    toast.success("Current notes has been updated");
+
+    return currentId;
+  }
+
+  localStorage.setItem("mynotes", JSON.stringify([...parsed, formatted]));
+
+  toast.success("New notes added into local storage");
+
+  return currentId;
 }
