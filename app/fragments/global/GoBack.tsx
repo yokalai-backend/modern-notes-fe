@@ -7,7 +7,11 @@ export default function GoBack() {
 
   return (
     <button
-      onClick={() => router.back()}
+      onClick={() => {
+        router.back();
+        localStorage.removeItem("editedId");
+        localStorage.removeItem("editedNotes");
+      }}
       className="text-xl text-white self-start mt-1 px-1"
     >
       ⟵
