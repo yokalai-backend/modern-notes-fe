@@ -15,7 +15,7 @@ export default function Page() {
     <main className="bg-black/75 min-h-screen font-mono">
       <Header />
       <Filter />
-      <Notes />
+      <Notes router={router} />
       <AddNotes router={router} />
       <Footer />
     </main>

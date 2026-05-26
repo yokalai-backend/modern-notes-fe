@@ -3,7 +3,7 @@ import { NoteProps } from "@/app/types/global";
 import Note from "./Note";
 import getNotesFromLocalStorage from "@/app/fragments/menu/get.notes.local";
 
-export default function Notes() {
+export default function Notes({ router }: any) {
   const [notes, setNotes] = useState<NoteProps[]>([]);
 
   getNotesFromLocalStorage(setNotes);
@@ -19,7 +19,15 @@ export default function Notes() {
       )}
 
       {notes.map((e) => (
-        <Note key={e.id} title={e.title} date={e.date} />
+        <Note
+          key={e.id}
+          id={e.id}
+          title={e.title}
+          date={e.date}
+          time={e.time}
+          notes={e.notes}
+          router={router}
+        />
       ))}
     </main>
   );

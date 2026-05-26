@@ -1,13 +1,10 @@
 import addNotesToLocalStorage from "@/app/fragments/editing/add.notes.local";
-import useInput from "@/app/hooks/useInput";
 import AddTitle from "./AddTitle";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 import GoBack from "@/app/fragments/global/GoBack";
 
-export default function Header({ text, formatted, time }: any) {
-  const title = useInput();
-  const currentId = useRef<string | null>(null);
+export default function Header({ title, text, date, time }: any) {
   const [noTitle, setNoTitle] = useState(false);
 
   function handleAddNote() {
@@ -18,19 +15,13 @@ export default function Header({ text, formatted, time }: any) {
       return;
     }
 
-    const currId = addNotesToLocalStorage(
-      text,
-      title.value,
-      formatted,
-      time,
-      currentId.current as string,
-    );
+    setNoTitle(false);
 
-    currentId.current = currId ? (currId as string) : null;
+    addNotesToLocalStorage(text, title.value, date, time);
   }
 
   return (
-    <header className="flex items-center justify-between px-4 py-2.5 border-b border-b-white/40 rounded-lg border-l-3 border-l-white/40 gap-3">
+    <header className="flex items-center justify-between px-4 py-2.5 border-b border-b-white/40 gap-3">
       <GoBack />
 
       {noTitle && (

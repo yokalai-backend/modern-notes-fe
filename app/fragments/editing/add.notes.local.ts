@@ -6,12 +6,13 @@ export default function addNotesToLocalStorage(
   title: string,
   date: string,
   time: string,
-  isIdExists: string,
 ) {
   if (!text) return toast.error("No notes could be added");
 
+  const editedId = localStorage.getItem("editedId");
+
   const currentId =
-    Math.random().toString(36).slice(2) + Date.now().toString(36);
+    editedId || Math.random().toString(36).slice(2) + Date.now().toString(36);
 
   const formatted = {
     id: currentId,
@@ -21,29 +22,26 @@ export default function addNotesToLocalStorage(
     time,
   };
 
-  const mynotes = localStorage.getItem("mynotes");
+  const myNotes = localStorage.getItem("mynotes");
 
-  if (!mynotes) {
+  if (!myNotes) {
     localStorage.setItem("mynotes", JSON.stringify([formatted]));
-
-    return currentId;
+    localStorage.setItem("editedId", currentId);
+    toast.success("New notes added into local storage");
+    return;
   }
 
-  const parsed = JSON.parse(mynotes) as NoteProps[];
+  const parsed = JSON.parse(myNotes) as NoteProps[];
 
-  if (isIdExists) {
-    const edit = parsed.map((e) => (e.id === isIdExists ? formatted : e));
-
+  if (editedId) {
+    const edit = parsed.map((e) => (e.id === editedId ? formatted : e));
     localStorage.setItem("mynotes", JSON.stringify(edit));
-
+    localStorage.setItem("editedId", editedId);
     toast.success("Current notes has been updated");
-
-    return currentId;
+    return;
   }
 
   localStorage.setItem("mynotes", JSON.stringify([...parsed, formatted]));
-
+  localStorage.setItem("editedId", currentId);
   toast.success("New notes added into local storage");
-
-  return currentId;
 }
