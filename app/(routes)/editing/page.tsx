@@ -13,6 +13,7 @@ export default function Page() {
   const title = useInput();
   const lastCommit = useRef<{ date: string; time: string }>(null);
   const date = useRef(new Date());
+  const [isPref, setIsPref] = useState(false);
 
   EditMode(lastCommit, title, setText);
 
@@ -20,7 +21,13 @@ export default function Page() {
 
   return (
     <main className="bg-black/75 min-h-screen flex flex-col gap-2">
-      <Header title={title} text={text} date={formatted} time={time} />
+      <Header
+        title={title}
+        text={text}
+        date={formatted}
+        time={time}
+        setIsPref={setIsPref}
+      />
       <EditingArea
         text={text}
         setText={setText}
@@ -28,6 +35,8 @@ export default function Page() {
         time={time}
         lsdate={lastCommit.current?.date}
         lstime={lastCommit.current?.time}
+        isPref={isPref}
+        setIsPref={setIsPref}
       />
     </main>
   );

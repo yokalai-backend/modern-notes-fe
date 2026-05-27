@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { NoteProps } from "@/app/types/global";
-import Note from "./Note";
 import getNotesFromLocalStorage from "@/app/fragments/menu/get.notes.local";
+import { NoteProps } from "@/app/types/global";
+import { useState } from "react";
+import Note from "./Note";
 
 export default function Notes({ router }: any) {
   const [notes, setNotes] = useState<NoteProps[]>([]);
@@ -27,6 +27,7 @@ export default function Notes({ router }: any) {
           time={e.time}
           notes={e.notes}
           router={router}
+          setNotes={setNotes}
         />
       ))}
     </main>

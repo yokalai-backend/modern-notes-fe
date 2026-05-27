@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 
 export default function Page() {
   const router = useRouter();
-
   return (
     <main className="bg-black/75 min-h-screen font-mono">
       <Header />
