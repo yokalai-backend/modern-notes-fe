@@ -1,10 +1,10 @@
 import addNotesToLocalStorage from "@/app/fragments/editing/add.notes.local";
 import AddTitle from "./AddTitle";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import GoBack from "@/app/fragments/global/GoBack";
 
-export default function Header({ title, text, date, time }: any) {
+export default function Header({ title, text, date, time, setIsPref }: any) {
   const [noTitle, setNoTitle] = useState(false);
 
   function handleAddNote() {
@@ -38,6 +38,7 @@ export default function Header({ title, text, date, time }: any) {
           placeholder="Untitled..."
           onChange={title.onChange}
           value={title.value}
+          maxLength={35}
         />
         <span className="text-[10px] font-mono text-[#aaa] uppercase tracking-widest">
           editing mode
@@ -51,7 +52,7 @@ export default function Header({ title, text, date, time }: any) {
 
         <div className="w-px h-6 bg-white mx-1" />
 
-        <div className="w-5">
+        <div onClick={() => setIsPref(true)} className="w-5">
           <img src="/three.dots.svg" alt="" />
         </div>
       </div>

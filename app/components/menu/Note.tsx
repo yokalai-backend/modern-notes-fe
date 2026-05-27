@@ -1,4 +1,10 @@
 import editNotesLocalStorage from "@/app/fragments/editing/edit.notes.local";
+import DoubleConfirmation from "@/app/fragments/global/DoubleConfirmation";
+import deleteNoteFromLocalStorage from "@/app/fragments/menu/delete.note.local";
+import { NoteProps } from "@/app/types/global";
+import { useState } from "react";
+import NotesList from "./NotesList";
+import NotesGrid from "./NotesGrid";
 
 export default function Note({
   id,
@@ -7,6 +13,8 @@ export default function Note({
   time,
   notes,
   router,
+  setNotes,
+  currPosition,
 }: {
   id: string;
   title: string;
@@ -14,7 +22,11 @@ export default function Note({
   time: string;
   notes: string;
   router: any;
+  setNotes: any;
+  currPosition: string;
 }) {
+  const [deleteNote, setDeleteNote] = useState(false);
+
   const formatted = {
     id,
     notes,
@@ -23,18 +35,47 @@ export default function Note({
     date,
   };
 
-  return (
-    <div
-      onClick={() => editNotesLocalStorage(router, formatted)}
-      className="flex justify-between text-white/90 text-lg bg-black/40  mt-1 py-4 px-2 items-center rounded-xl border-b-2 border-white/50"
-    >
-      <h2 className="line-clamp-1 max-w-50 text-sm">{title}</h2>
-      <div className="flex gap-2 items-center mr-2.5">
-        <p className="text-sm">{date}</p>
-        <div className="w-5.5 mb-0.5">
-          <img src="/delete.svg" alt="" />
-        </div>
+  if (currPosition === "notes") {
+    return (
+      <div>
+        <NotesList
+          date={date}
+          formatted={formatted}
+          router={router}
+          setNotes={setNotes}
+          title={title}
+          setDeleteNote={setDeleteNote}
+        />
+
+        <DoubleConfirmation
+          trigger={deleteNote}
+          setTrigger={setDeleteNote}
+          text="Are you sure you want delete this note ?"
+          callback={() =>
+            deleteNoteFromLocalStorage(id, setDeleteNote, setNotes)
+          }
+        />
       </div>
+    );
+  }
+
+  return (
+    <div>
+      <NotesGrid
+        date={date}
+        formatted={formatted}
+        router={router}
+        setDeleteNote={setDeleteNote}
+        setNotes={setNotes}
+        title={title}
+      />
+
+      <DoubleConfirmation
+        trigger={deleteNote}
+        setTrigger={setDeleteNote}
+        text="Are you sure you want delete this note ?"
+        callback={() => deleteNoteFromLocalStorage(id, setDeleteNote, setNotes)}
+      />
     </div>
   );
 }

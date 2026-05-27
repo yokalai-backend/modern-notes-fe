@@ -2,46 +2,32 @@
 
 import EditingArea from "@/app/components/editing/EditingArea";
 import Header from "@/app/components/editing/Header";
+import EditMode from "@/app/fragments/editing/edit.mode";
+import NotesTimestamp from "@/app/fragments/editing/notes.timestamp";
 import useInput from "@/app/hooks/useInput";
-import { NoteProps } from "@/app/types/global";
 
-import { useState, useRef, useEffect } from "react";
+import { useRef, useState } from "react";
 
 export default function Page() {
   const [text, setText] = useState("");
   const title = useInput();
   const lastCommit = useRef<{ date: string; time: string }>(null);
   const date = useRef(new Date());
+  const [isPref, setIsPref] = useState(false);
 
-  useEffect(() => {
-    const editedNotes = localStorage.getItem("editedNotes");
+  EditMode(lastCommit, title, setText);
 
-    if (!editedNotes) return;
-
-    const parsed = JSON.parse(editedNotes) as NoteProps;
-
-    lastCommit.current = { time: parsed.time, date: parsed.date };
-    localStorage.setItem("editedId", parsed.id);
-
-    title.setValue(parsed.title);
-    setText(parsed.notes);
-  }, []);
-
-  const formatted = date.current.toLocaleDateString("en-GB", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
-
-  const time = date.current.toLocaleTimeString("en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
-  });
+  const { formatted, time } = NotesTimestamp(date);
 
   return (
     <main className="bg-black/75 min-h-screen flex flex-col gap-2">
-      <Header title={title} text={text} date={formatted} time={time} />
+      <Header
+        title={title}
+        text={text}
+        date={formatted}
+        time={time}
+        setIsPref={setIsPref}
+      />
       <EditingArea
         text={text}
         setText={setText}
@@ -49,6 +35,8 @@ export default function Page() {
         time={time}
         lsdate={lastCommit.current?.date}
         lstime={lastCommit.current?.time}
+        isPref={isPref}
+        setIsPref={setIsPref}
       />
     </main>
   );
