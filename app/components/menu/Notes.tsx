@@ -3,33 +3,38 @@ import { NoteProps } from "@/app/types/global";
 import { useState } from "react";
 import Note from "./Note";
 
-export default function Notes({ router }: any) {
+export default function Notes({ router, currPosition }: any) {
   const [notes, setNotes] = useState<NoteProps[]>([]);
 
   getNotesFromLocalStorage(setNotes);
 
-  if (!notes.length) return;
+  function currentNotesView(currPosition: string) {
+    if (currPosition === "grid") {
+      return "grid grid-cols-2 gap-2";
+    }
+  }
 
   return (
     <main className="px-1">
-      {!notes.length && (
-        <p className="text-white/85 text-sm text-center">
-          Add notes to keep here...
-        </p>
-      )}
+      <section className={currentNotesView(currPosition)}>
+        {notes.map((e) => (
+          <Note
+            key={e.id}
+            id={e.id}
+            title={e.title}
+            date={e.date}
+            time={e.time}
+            notes={e.notes}
+            router={router}
+            setNotes={setNotes}
+            currPosition={currPosition}
+          />
+        ))}
+      </section>
 
-      {notes.map((e) => (
-        <Note
-          key={e.id}
-          id={e.id}
-          title={e.title}
-          date={e.date}
-          time={e.time}
-          notes={e.notes}
-          router={router}
-          setNotes={setNotes}
-        />
-      ))}
+      <p className="text-white/85 text-sm text-center mt-3">
+        Added notes will be appear here...
+      </p>
     </main>
   );
 }
