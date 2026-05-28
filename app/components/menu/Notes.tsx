@@ -1,6 +1,7 @@
+import filteredNotes from "@/app/fragments/menu/filtered.notes";
 import getNotesFromLocalStorage from "@/app/fragments/menu/get.notes.local";
 import { NoteProps } from "@/app/types/global";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Note from "./Note";
 
 export default function Notes({ router, currPosition, search }: any) {
@@ -19,21 +20,7 @@ export default function Notes({ router, currPosition, search }: any) {
     }
   }
 
-  useEffect(() => {
-    if (!search?.value) {
-      setFiltered(notes);
-      return;
-    }
-    const result = notes.filter(
-      (e) =>
-        e.title
-          .slice(0, 10)
-          .toLowerCase()
-          .includes(search.value.toLowerCase()) ||
-        e.notes.slice(0, 20).toLowerCase().includes(search.value.toLowerCase()),
-    );
-    setFiltered(result);
-  }, [search?.value, notes]);
+  filteredNotes(search, setFiltered, notes);
 
   const displayNotes = currPosition === "search" ? filtered : notes;
 

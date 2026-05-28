@@ -1,9 +1,9 @@
 import DoubleConfirmation from "@/app/fragments/global/DoubleConfirmation";
 import deleteNoteFromLocalStorage from "@/app/fragments/menu/delete.note.local";
 import { useState } from "react";
-import NotesGrid from "./View/NotesGrid";
-import NotesList from "./View/NotesList";
-import NotesSearch from "./View/NotesSearch";
+import NotesGrid from "./view/NotesGrid";
+import NotesList from "./view/NotesList";
+import NotesSearch from "./view/NotesSearch";
 
 export default function Note({
   id,
@@ -41,7 +41,6 @@ export default function Note({
           date={date}
           formatted={formatted}
           router={router}
-          setNotes={setNotes}
           title={title}
           setDeleteNote={setDeleteNote}
         />
@@ -64,7 +63,6 @@ export default function Note({
           formatted={formatted}
           router={router}
           setDeleteNote={setDeleteNote}
-          setNotes={setNotes}
           title={title}
         />
 
@@ -86,7 +84,6 @@ export default function Note({
           formatted={formatted}
           router={router}
           setDeleteNote={setDeleteNote}
-          setNotes={setNotes}
           title={title}
         />
 

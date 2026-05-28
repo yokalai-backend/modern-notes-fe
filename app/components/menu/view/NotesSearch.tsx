@@ -8,7 +8,6 @@ export default function NotesSearch({
   date,
 }: {
   setDeleteNote: (con: boolean) => any;
-  setNotes: () => any;
   router: any;
   formatted: any;
   title: string;

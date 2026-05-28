@@ -5,12 +5,13 @@ import Filter from "@/app/components/menu/Filter";
 import Footer from "@/app/components/menu/Footer";
 import Header from "@/app/components/menu/Header";
 import Notes from "@/app/components/menu/Notes";
+import OpenSearchBar from "@/app/components/menu/OpenSearchBar";
 import SearchNotes from "@/app/components/menu/SearchNotes";
-import { CurrentPositionProps } from "@/app/types/menu";
 import useInput from "@/app/hooks/useInput";
+import { CurrentPositionProps } from "@/app/types/menu";
 
 import { useRouter } from "next/navigation";
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Page() {
   const router = useRouter();
@@ -50,17 +51,7 @@ export default function Page() {
               setIsSearch={setIsSearch}
             />
           ) : (
-            <main className="fixed bottom-15 w-full px-1 bg-linear-to-t from-black to-zinc-900 min-h-10 flex flex-col justify-end rounded-t-xl border-b border-b-white/30 mb-0.5">
-              <p className="text-white font-mono absolute top-1 left-3">
-                Search...
-              </p>
-              <button
-                onClick={() => setIsSearch(true)}
-                className="absolute text-white text-3xl top-0 right-3 cursor-pointer hover:opacity-70 transition-opacity"
-              >
-                ↑
-              </button>
-            </main>
+            <OpenSearchBar setIsSearch={setIsSearch} />
           )}
         </>
       )}
