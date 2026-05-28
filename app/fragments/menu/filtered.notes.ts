@@ -14,10 +14,10 @@ export default function filteredNotes(
     const result = notes.filter(
       (e) =>
         e.title
-          .slice(0, 10)
+          .slice(0, 25)
           .toLowerCase()
           .includes(search.value.toLowerCase()) ||
-        e.notes.slice(0, 20).toLowerCase().includes(search.value.toLowerCase()),
+        e.notes.slice(0, 30).toLowerCase().includes(search.value.toLowerCase()),
     );
     setFiltered(result);
   }, [search?.value, notes]);

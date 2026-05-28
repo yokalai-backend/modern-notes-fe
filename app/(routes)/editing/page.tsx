@@ -11,7 +11,9 @@ import { useRef, useState } from "react";
 export default function Page() {
   const [text, setText] = useState("");
   const title = useInput();
-  const lastCommit = useRef<{ date: string; time: string }>(null);
+  const lastCommit = useRef<{ date: string; time: string; createdAt: string }>(
+    null,
+  );
   const date = useRef(new Date());
   const [isPref, setIsPref] = useState(false);
 
@@ -35,6 +37,7 @@ export default function Page() {
         time={time}
         lsdate={lastCommit.current?.date}
         lstime={lastCommit.current?.time}
+        createdAt={lastCommit.current?.createdAt}
         isPref={isPref}
         setIsPref={setIsPref}
       />

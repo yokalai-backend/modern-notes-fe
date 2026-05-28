@@ -11,6 +11,7 @@ export default function Note({
   date,
   time,
   notes,
+  createdAt,
   router,
   setNotes,
   currPosition,
@@ -19,6 +20,7 @@ export default function Note({
   title: string;
   date: string;
   time: string;
+  createdAt: string;
   notes: string;
   router: any;
   setNotes: any;
@@ -32,13 +34,14 @@ export default function Note({
     time,
     title,
     date,
+    createdAt,
   };
 
   if (currPosition === "notes") {
     return (
-      <div>
+      <div className="px-1">
         <NotesList
-          date={date}
+          createdAt={createdAt}
           formatted={formatted}
           router={router}
           title={title}
@@ -57,9 +60,9 @@ export default function Note({
     );
   } else if (currPosition === "grid")
     return (
-      <div>
+      <div className="px-1">
         <NotesGrid
-          date={date}
+          createdAt={createdAt}
           formatted={formatted}
           router={router}
           setDeleteNote={setDeleteNote}
@@ -78,9 +81,9 @@ export default function Note({
     );
   else if (currPosition === "search") {
     return (
-      <div className="relative">
+      <div className="relative px-1">
         <NotesSearch
-          date={date}
+          createdAt={createdAt}
           formatted={formatted}
           router={router}
           setDeleteNote={setDeleteNote}

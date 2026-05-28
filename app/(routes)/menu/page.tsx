@@ -7,21 +7,22 @@ import Header from "@/app/components/menu/Header";
 import Notes from "@/app/components/menu/Notes";
 import OpenSearchBar from "@/app/components/menu/OpenSearchBar";
 import SearchNotes from "@/app/components/menu/SearchNotes";
+import filteredNotes from "@/app/fragments/menu/filtered.notes";
 import useInput from "@/app/hooks/useInput";
 import { NoteProps } from "@/app/types/global";
 import { CurrentPositionProps, SortingBy } from "@/app/types/menu";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Page() {
   const router = useRouter();
   const [currPosition, setCurrPosition] = useState<CurrentPositionProps>();
   const [sortedBy, setSortedBy] = useState<SortingBy>("last created at");
   const [notes, setNotes] = useState<NoteProps[]>([]);
+  const [filtered, setFiltered] = useState<NoteProps[]>([]);
 
   const search = useInput();
-  const searchRef = useRef<HTMLTextAreaElement>(null);
   const [isSearch, setIsSearch] = useState(false);
 
   useEffect(() => {
@@ -36,43 +37,41 @@ export default function Page() {
     localStorage.setItem("view", currPosition);
   }, [currPosition]);
 
+  filteredNotes(search, setFiltered, notes);
+
   return (
-    <>
-      <main className="bg-black/75 min-h-screen font-mono">
-        <Header />
-        <Filter
-          setNotes={setNotes}
-          sortedBy={sortedBy!}
-          setSortedBy={setSortedBy}
-        />
-        <Notes
-          router={router}
-          currPosition={currPosition}
-          search={search}
-          notes={notes}
-          setNotes={setNotes}
-        />
-        {currPosition !== "search" && <AddNotes router={router} />}
-        {!isSearch && (
-          <Footer
-            currPosition={currPosition}
-            setCurrPosition={setCurrPosition}
-          />
-        )}
-      </main>
+    <main className="bg-black/75 min-h-screen font-mono">
+      <Header />
+      <Filter
+        setNotes={setNotes}
+        sortedBy={sortedBy!}
+        setSortedBy={setSortedBy}
+      />
+      <Notes
+        router={router}
+        currPosition={currPosition}
+        notes={notes}
+        filtered={filtered}
+        setNotes={setNotes}
+      />
+      {currPosition !== "search" && <AddNotes router={router} />}
+      {!isSearch && (
+        <Footer currPosition={currPosition} setCurrPosition={setCurrPosition} />
+      )}
+
       {currPosition === "search" && (
         <>
           {isSearch ? (
             <SearchNotes
               search={search}
-              searchRef={searchRef}
               setIsSearch={setIsSearch}
+              filtered={filtered}
             />
           ) : (
             <OpenSearchBar setIsSearch={setIsSearch} />
           )}
         </>
       )}
-    </>
+    </main>
   );
 }
