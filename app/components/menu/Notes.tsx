@@ -1,30 +1,26 @@
-import filteredNotes from "@/app/fragments/menu/filtered.notes";
 import getNotesFromLocalStorage from "@/app/fragments/menu/get.notes.local";
 import { NoteProps } from "@/app/types/global";
-import { useState } from "react";
-import Note from "./Note";
 import { CurrentPositionProps } from "@/app/types/menu";
+import Note from "./Note";
 
 export default function Notes({
   router,
   currPosition,
-  search,
   notes,
   setNotes,
+  filtered,
 }: {
   router: any;
   currPosition: CurrentPositionProps | undefined;
-  search: any;
   notes: NoteProps[];
   setNotes: (nts: NoteProps[]) => any;
+  filtered: NoteProps[];
 }) {
-  const [filtered, setFiltered] = useState<NoteProps[]>([]);
-
   getNotesFromLocalStorage(setNotes);
 
   function currentNotesView(currPosition: string) {
     if (currPosition === "grid") {
-      return "grid grid-cols-2 gap-2";
+      return "grid grid-cols-2";
     }
 
     if (currPosition === "search") {
@@ -32,12 +28,10 @@ export default function Notes({
     }
   }
 
-  filteredNotes(search, setFiltered, notes);
-
   const displayNotes = currPosition === "search" ? filtered : notes;
 
   return (
-    <main className={`px-1 ${currPosition === "search" ? "pb-40" : ""}`}>
+    <main>
       <section className={currentNotesView(currPosition!)}>
         {displayNotes.map((e) => (
           <Note
@@ -47,6 +41,7 @@ export default function Notes({
             date={e.date}
             time={e.time}
             notes={e.notes}
+            createdAt={e.createdAt}
             router={router}
             setNotes={setNotes}
             currPosition={currPosition!}

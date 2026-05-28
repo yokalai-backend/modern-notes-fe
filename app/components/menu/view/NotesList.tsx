@@ -5,26 +5,26 @@ export default function NotesList({
   router,
   formatted,
   title,
-  date,
+  createdAt,
 }: {
   setDeleteNote: (con: boolean) => any;
   router: any;
   formatted: any;
   title: string;
-  date: string;
+  createdAt: string;
 }) {
   return (
     <div className="relative flex justify-between text-white/90 text-lg bg-black/40  mt-1 py-4 px-2 items-center rounded-xl border-b-2 border-white/50">
       <div
         onClick={() => editNotesLocalStorage(router, formatted)}
-        className="absolute bg-black min-w-70 left-0 h-full opacity-0"
+        className="absolute bg-black min-w-70 left-0 h-full opacity-0 select-none"
       >
         Touch area
       </div>
 
       <h2 className="line-clamp-1 max-w-40 sm:max-w-50 text-sm">{title}</h2>
       <div className="flex gap-2 items-center mr-2.5">
-        <p className="text-sm">{date}</p>
+        <p className="text-sm">{createdAt}</p>
         <div onClick={() => setDeleteNote(true)} className="w-5.5 mb-0.5">
           <img src="/delete.svg" alt="" />
         </div>

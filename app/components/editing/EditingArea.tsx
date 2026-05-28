@@ -8,10 +8,9 @@ import { useEffect, useState } from "react";
 export default function EditingArea({
   text,
   setText,
-  formatted,
-  time,
   lsdate,
   lstime,
+  createdAt,
   isPref,
   setIsPref,
 }: any) {
@@ -54,12 +53,18 @@ export default function EditingArea({
                 </div>
               </div>
             )}
-            <div className="text-xs font-mono text-white flex flex-col gap-1">
-              <p>Created at</p>
-              <div className="flex gap-2">
-                <p>{formatted}</p> |<p>{time}</p>
+            {createdAt ? (
+              <div className="text-xs font-mono text-white flex flex-col gap-1">
+                <p>Created at</p>
+                <div className="flex gap-2">
+                  <p>{createdAt}</p>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="text-xs font-mono text-white flex flex-col gap-1">
+                <p>Creating new note</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
