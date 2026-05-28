@@ -1,10 +1,9 @@
-import editNotesLocalStorage from "@/app/fragments/editing/edit.notes.local";
 import DoubleConfirmation from "@/app/fragments/global/DoubleConfirmation";
 import deleteNoteFromLocalStorage from "@/app/fragments/menu/delete.note.local";
-import { NoteProps } from "@/app/types/global";
 import { useState } from "react";
-import NotesList from "./NotesList";
-import NotesGrid from "./NotesGrid";
+import NotesGrid from "./View/NotesGrid";
+import NotesList from "./View/NotesList";
+import NotesSearch from "./View/NotesSearch";
 
 export default function Note({
   id,
@@ -57,25 +56,49 @@ export default function Note({
         />
       </div>
     );
+  } else if (currPosition === "grid")
+    return (
+      <div>
+        <NotesGrid
+          date={date}
+          formatted={formatted}
+          router={router}
+          setDeleteNote={setDeleteNote}
+          setNotes={setNotes}
+          title={title}
+        />
+
+        <DoubleConfirmation
+          trigger={deleteNote}
+          setTrigger={setDeleteNote}
+          text="Are you sure you want delete this note ?"
+          callback={() =>
+            deleteNoteFromLocalStorage(id, setDeleteNote, setNotes)
+          }
+        />
+      </div>
+    );
+  else if (currPosition === "search") {
+    return (
+      <div className="relative">
+        <NotesSearch
+          date={date}
+          formatted={formatted}
+          router={router}
+          setDeleteNote={setDeleteNote}
+          setNotes={setNotes}
+          title={title}
+        />
+
+        <DoubleConfirmation
+          trigger={deleteNote}
+          setTrigger={setDeleteNote}
+          text="Are you sure you want delete this note ?"
+          callback={() =>
+            deleteNoteFromLocalStorage(id, setDeleteNote, setNotes)
+          }
+        />
+      </div>
+    );
   }
-
-  return (
-    <div>
-      <NotesGrid
-        date={date}
-        formatted={formatted}
-        router={router}
-        setDeleteNote={setDeleteNote}
-        setNotes={setNotes}
-        title={title}
-      />
-
-      <DoubleConfirmation
-        trigger={deleteNote}
-        setTrigger={setDeleteNote}
-        text="Are you sure you want delete this note ?"
-        callback={() => deleteNoteFromLocalStorage(id, setDeleteNote, setNotes)}
-      />
-    </div>
-  );
 }

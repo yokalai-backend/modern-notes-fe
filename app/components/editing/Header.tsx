@@ -38,7 +38,7 @@ export default function Header({ title, text, date, time, setIsPref }: any) {
           placeholder="Untitled..."
           onChange={title.onChange}
           value={title.value}
-          maxLength={35}
+          maxLength={25}
         />
         <span className="text-[10px] font-mono text-[#aaa] uppercase tracking-widest">
           editing mode

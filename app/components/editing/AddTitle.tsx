@@ -22,6 +22,7 @@ export default function AddTitle({ title, setNoTitle, handleAddNote }: any) {
             onChange={title.onChange}
             value={title.value}
             placeholder="Untitled..."
+            maxLength={25}
           />
         </div>
 

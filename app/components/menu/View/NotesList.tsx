@@ -23,7 +23,7 @@ export default function NotesList({
         Touch area
       </div>
 
-      <h2 className="line-clamp-1 min-w-50 text-sm">{title}</h2>
+      <h2 className="line-clamp-1 max-w-40 sm:max-w-50 text-sm">{title}</h2>
       <div className="flex gap-2 items-center mr-2.5">
         <p className="text-sm">{date}</p>
         <div onClick={() => setDeleteNote(true)} className="w-5.5 mb-0.5">

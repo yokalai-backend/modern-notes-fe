@@ -23,7 +23,7 @@ export default function NotesGrid({
         Touch area
       </div>
       <div className="border-b border-b-white/30 min-h-25 w-full">
-        <h2 className="line-clamp-1 text-lg">{title}</h2>
+        <h2 className="line-clamp-1 text-lg max-w-35 sm:max-w-45">{title}</h2>
         <p className="text-white/60 line-clamp-3">{formatted.notes}</p>
       </div>
 
