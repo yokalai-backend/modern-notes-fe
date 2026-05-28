@@ -12,6 +12,10 @@ export default function Notes({ router, currPosition }: any) {
     if (currPosition === "grid") {
       return "grid grid-cols-2 gap-2";
     }
+
+    if (currPosition === "search") {
+      return "grid grid-cols-1 gap-4";
+    }
   }
 
   return (
