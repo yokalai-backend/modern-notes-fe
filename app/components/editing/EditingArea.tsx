@@ -39,24 +39,28 @@ export default function EditingArea({
       )}
 
       <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/30">
-        <div>
+        <div className="w-full">
           <h2 className="text-lg leading-none mb-1">
             <span className="text-white/70">Modern</span>{" "}
             <span className="text-white">Note</span>
           </h2>
 
-          {lsdate && (
+          <div className="flex justify-between">
+            {lsdate && (
+              <div className="text-xs font-mono text-white flex flex-col gap-1">
+                <p>Last updated</p>
+                <div className="flex gap-2">
+                  <p>{lsdate}</p> |<p>{lstime}</p>
+                </div>
+              </div>
+            )}
             <div className="text-xs font-mono text-white flex flex-col gap-1">
-              <p>Last updated</p>
+              <p>Created at</p>
               <div className="flex gap-2">
-                <p>{lsdate}</p> |<p>{lstime}</p>
+                <p>{formatted}</p> |<p>{time}</p>
               </div>
             </div>
-          )}
-        </div>
-        <div className="text-white text-xs font-mono mt-1">
-          <p>{formatted}</p>
-          <p className="text-right">{time}</p>
+          </div>
         </div>
       </div>
 

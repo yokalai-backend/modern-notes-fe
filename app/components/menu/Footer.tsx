@@ -11,7 +11,7 @@ export default function Footer({
   currPosition,
   setCurrPosition,
 }: {
-  currPosition: CurrentPositionProps;
+  currPosition: CurrentPositionProps | undefined;
   setCurrPosition: (position: CurrentPositionProps) => any;
 }) {
   return (
@@ -19,7 +19,9 @@ export default function Footer({
       {navItems.map(({ key, icon, alt }) => (
         <div
           key={key}
-          onClick={() => setCurrPosition(key)}
+          onClick={() => {
+            setCurrPosition(key);
+          }}
           className={`flex-1 flex items-center justify-center py-1.5 rounded-xl cursor-pointer transition-all duration-200 ${
             currPosition === key ? "bg-white/20" : "hover:bg-white/10"
           }`}

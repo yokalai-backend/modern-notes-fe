@@ -1,10 +1,23 @@
+import filteredNotes from "@/app/fragments/menu/filtered.notes";
 import getNotesFromLocalStorage from "@/app/fragments/menu/get.notes.local";
 import { NoteProps } from "@/app/types/global";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Note from "./Note";
+import { CurrentPositionProps } from "@/app/types/menu";
 
-export default function Notes({ router, currPosition, search }: any) {
-  const [notes, setNotes] = useState<NoteProps[]>([]);
+export default function Notes({
+  router,
+  currPosition,
+  search,
+  notes,
+  setNotes,
+}: {
+  router: any;
+  currPosition: CurrentPositionProps | undefined;
+  search: any;
+  notes: NoteProps[];
+  setNotes: (nts: NoteProps[]) => any;
+}) {
   const [filtered, setFiltered] = useState<NoteProps[]>([]);
 
   getNotesFromLocalStorage(setNotes);
@@ -19,27 +32,13 @@ export default function Notes({ router, currPosition, search }: any) {
     }
   }
 
-  useEffect(() => {
-    if (!search?.value) {
-      setFiltered(notes);
-      return;
-    }
-    const result = notes.filter(
-      (e) =>
-        e.title
-          .slice(0, 10)
-          .toLowerCase()
-          .includes(search.value.toLowerCase()) ||
-        e.notes.slice(0, 20).toLowerCase().includes(search.value.toLowerCase()),
-    );
-    setFiltered(result);
-  }, [search?.value, notes]);
+  filteredNotes(search, setFiltered, notes);
 
   const displayNotes = currPosition === "search" ? filtered : notes;
 
   return (
     <main className={`px-1 ${currPosition === "search" ? "pb-40" : ""}`}>
-      <section className={currentNotesView(currPosition)}>
+      <section className={currentNotesView(currPosition!)}>
         {displayNotes.map((e) => (
           <Note
             key={e.id}
@@ -50,7 +49,7 @@ export default function Notes({ router, currPosition, search }: any) {
             notes={e.notes}
             router={router}
             setNotes={setNotes}
-            currPosition={currPosition}
+            currPosition={currPosition!}
           />
         ))}
       </section>
