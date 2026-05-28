@@ -1,10 +1,11 @@
 import getNotesFromLocalStorage from "@/app/fragments/menu/get.notes.local";
 import { NoteProps } from "@/app/types/global";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Note from "./Note";
 
-export default function Notes({ router, currPosition }: any) {
+export default function Notes({ router, currPosition, search }: any) {
   const [notes, setNotes] = useState<NoteProps[]>([]);
+  const [filtered, setFiltered] = useState<NoteProps[]>([]);
 
   getNotesFromLocalStorage(setNotes);
 
@@ -18,10 +19,28 @@ export default function Notes({ router, currPosition }: any) {
     }
   }
 
+  useEffect(() => {
+    if (!search?.value) {
+      setFiltered(notes);
+      return;
+    }
+    const result = notes.filter(
+      (e) =>
+        e.title
+          .slice(0, 10)
+          .toLowerCase()
+          .includes(search.value.toLowerCase()) ||
+        e.notes.slice(0, 20).toLowerCase().includes(search.value.toLowerCase()),
+    );
+    setFiltered(result);
+  }, [search?.value, notes]);
+
+  const displayNotes = currPosition === "search" ? filtered : notes;
+
   return (
-    <main className="px-1">
+    <main className={`px-1 ${currPosition === "search" ? "pb-40" : ""}`}>
       <section className={currentNotesView(currPosition)}>
-        {notes.map((e) => (
+        {displayNotes.map((e) => (
           <Note
             key={e.id}
             id={e.id}

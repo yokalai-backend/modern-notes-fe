@@ -32,7 +32,7 @@ export default function Page() {
       <main className="bg-black/75 min-h-screen font-mono">
         <Header />
         <Filter />
-        <Notes router={router} currPosition={currPosition} />
+        <Notes router={router} currPosition={currPosition} search={search} />
         {currPosition !== "search" && <AddNotes router={router} />}
         {!isSearch && (
           <Footer
