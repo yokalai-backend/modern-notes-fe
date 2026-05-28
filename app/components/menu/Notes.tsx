@@ -3,9 +3,21 @@ import getNotesFromLocalStorage from "@/app/fragments/menu/get.notes.local";
 import { NoteProps } from "@/app/types/global";
 import { useState } from "react";
 import Note from "./Note";
+import { CurrentPositionProps } from "@/app/types/menu";
 
-export default function Notes({ router, currPosition, search }: any) {
-  const [notes, setNotes] = useState<NoteProps[]>([]);
+export default function Notes({
+  router,
+  currPosition,
+  search,
+  notes,
+  setNotes,
+}: {
+  router: any;
+  currPosition: CurrentPositionProps | undefined;
+  search: any;
+  notes: NoteProps[];
+  setNotes: (nts: NoteProps[]) => any;
+}) {
   const [filtered, setFiltered] = useState<NoteProps[]>([]);
 
   getNotesFromLocalStorage(setNotes);
@@ -26,7 +38,7 @@ export default function Notes({ router, currPosition, search }: any) {
 
   return (
     <main className={`px-1 ${currPosition === "search" ? "pb-40" : ""}`}>
-      <section className={currentNotesView(currPosition)}>
+      <section className={currentNotesView(currPosition!)}>
         {displayNotes.map((e) => (
           <Note
             key={e.id}
@@ -37,7 +49,7 @@ export default function Notes({ router, currPosition, search }: any) {
             notes={e.notes}
             router={router}
             setNotes={setNotes}
-            currPosition={currPosition}
+            currPosition={currPosition!}
           />
         ))}
       </section>

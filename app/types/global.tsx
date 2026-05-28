@@ -4,4 +4,5 @@ export type NoteProps = {
   title: string;
   date: string;
   time: string;
+  createdAt: string;
 };

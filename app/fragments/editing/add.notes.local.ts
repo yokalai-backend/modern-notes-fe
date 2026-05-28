@@ -20,6 +20,7 @@ export default function addNotesToLocalStorage(
     title,
     date,
     time,
+    createdAt: date,
   };
 
   const myNotes = localStorage.getItem("mynotes");
@@ -34,7 +35,9 @@ export default function addNotesToLocalStorage(
   const parsed = JSON.parse(myNotes) as NoteProps[];
 
   if (editedId) {
-    const edit = parsed.map((e) => (e.id === editedId ? formatted : e));
+    const edit = parsed.map((e) =>
+      e.id === editedId ? { ...formatted, createdAt: e.createdAt } : e,
+    );
     localStorage.setItem("mynotes", JSON.stringify(edit));
     localStorage.setItem("editedId", editedId);
     toast.success("Current notes has been updated");
