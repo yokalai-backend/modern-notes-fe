@@ -15,17 +15,22 @@ import { useEffect, useRef, useState } from "react";
 
 export default function Page() {
   const router = useRouter();
-  const [currPosition, setCurrPosition] =
-    useState<CurrentPositionProps>("notes");
+  const [currPosition, setCurrPosition] = useState<CurrentPositionProps>();
 
   const search = useInput();
   const searchRef = useRef<HTMLTextAreaElement>(null);
   const [isSearch, setIsSearch] = useState(false);
 
   useEffect(() => {
-    if (currPosition === "search") {
-      searchRef.current?.focus();
+    const lastViewPos = localStorage.getItem("view") as CurrentPositionProps;
+    if (lastViewPos) {
+      setCurrPosition(lastViewPos);
     }
+  }, []);
+
+  useEffect(() => {
+    if (currPosition === undefined) return;
+    localStorage.setItem("view", currPosition);
   }, [currPosition]);
 
   return (
