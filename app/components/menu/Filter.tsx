@@ -1,7 +1,7 @@
 import sortedBySpecificFilter from "@/app/fragments/menu/sorted.by";
 import { NoteProps } from "@/app/types/global";
 import { SortingBy } from "@/app/types/menu";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import SortMenu from "./SortMenu";
 
 export default function Filter({
@@ -16,6 +16,20 @@ export default function Filter({
   const [isSort, setIsSort] = useState(false);
 
   sortedBySpecificFilter(sortedBy, setNotes);
+
+  useEffect(() => {
+    const lastSortedBy = localStorage.getItem("sortedBy");
+
+    if (!lastSortedBy) return setSortedBy("last created at");
+
+    setSortedBy(lastSortedBy as SortingBy);
+  }, []);
+
+  useEffect(() => {
+    if (sortedBy === undefined) return;
+
+    localStorage.setItem("sortedBy", sortedBy);
+  }, [sortedBy]);
 
   return (
     <main>

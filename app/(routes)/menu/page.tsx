@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 export default function Page() {
   const router = useRouter();
   const [currPosition, setCurrPosition] = useState<CurrentPositionProps>();
-  const [sortedBy, setSortedBy] = useState<SortingBy>("last created at");
+  const [sortedBy, setSortedBy] = useState<SortingBy>();
   const [notes, setNotes] = useState<NoteProps[]>([]);
   const [filtered, setFiltered] = useState<NoteProps[]>([]);
 
@@ -27,9 +27,8 @@ export default function Page() {
 
   useEffect(() => {
     const lastViewPos = localStorage.getItem("view") as CurrentPositionProps;
-    if (lastViewPos) {
-      setCurrPosition(lastViewPos);
-    }
+    if (!lastViewPos) return setCurrPosition("notes");
+    setCurrPosition(lastViewPos);
   }, []);
 
   useEffect(() => {
