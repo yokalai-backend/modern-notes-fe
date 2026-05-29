@@ -40,7 +40,7 @@ export default function Page() {
 
   return (
     <main className="bg-black/75 min-h-screen font-mono">
-      <Header />
+      <Header setNotes={setNotes} />
       <Filter
         setNotes={setNotes}
         sortedBy={sortedBy!}

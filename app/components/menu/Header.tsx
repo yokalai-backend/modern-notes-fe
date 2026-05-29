@@ -1,4 +1,13 @@
-export default function Header() {
+import { useState } from "react";
+import QuickAction from "../QuickAction";
+import { NoteProps } from "@/app/types/global";
+
+export default function Header({
+  setNotes,
+}: {
+  setNotes: (nts: NoteProps[]) => any;
+}) {
+  const [isQuickAction, setIsQuickAction] = useState(false);
   return (
     <header className="flex items-center justify-between py-3 px-2 border-b border-b-white/70">
       <div className="flex flex-col">
@@ -11,9 +20,20 @@ export default function Header() {
         </p>
       </div>
 
-      <div className="w-5 self-start mt-0.5">
+      <div
+        onClick={() => setIsQuickAction(true)}
+        className="w-5 self-start mt-0.5"
+      >
         <img src="/three.dots.svg" alt="" />
       </div>
+
+      {isQuickAction && (
+        <QuickAction
+          isQuickAction={isQuickAction}
+          setIsQuickAction={setIsQuickAction}
+          setNotes={setNotes}
+        />
+      )}
     </header>
   );
 }
